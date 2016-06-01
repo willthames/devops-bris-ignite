@@ -2,6 +2,7 @@
 % Will Thames
 % 02 June 2016
 
+
 # Why have code reviews?
 
 * Spot bugs earlier
@@ -16,7 +17,6 @@
   contributors
 * Allows new contributors to learn from
   reviews
-
 
 # Why have standards?
 
@@ -45,8 +45,9 @@
 
 # What standards exist?
 
-* Ansible documents some Best practices (FIXME)
-* We have our own for consistency sake
+* Ansible documents some [Best practices for
+  playbooks](http://docs.ansible.com/ansible/playbooks_best_practices.html)
+* We have our own standards for consistency sake
     - whitespace
     - role versioning
     - roles
