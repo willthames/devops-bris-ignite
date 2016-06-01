@@ -5,34 +5,55 @@
 # Why have code reviews?
 
 * Spot bugs earlier
-* Avoid unnecessary code
-* Encourage reuse
+* Avoid unnecessary code (YAGNI)
+* Encourage reuse (DRY)
 * Avoid technical debt
+
+# Learning from reviews
+
 * More heads => neater code
+* Provides a means of building trust in new
+  contributors
+* Allows new contributors to learn from
+  reviews
+
 
 # Why have standards?
 
 * Consistency of code base, improves
   readability
-* If you can standardise up-front, it saves
-  arguments at review time
+* Rules are browsable, rather than found
+  at review time.
+* Standardise ahead of time, rather than
+  arguing at review time
 * Document best practices, and enforce them.
+
+# How do we manage standards?
+
+* standards are testable, best practices
+  are guidance
+* review process for new standards
+* standards are versioned (best practices
+  are not)
+
+# Main rule of code reviews
+
+* It is not permissable to block a code
+  review on an undocumented rule.
+* This means writing new rules as new
+  best practices are 'discovered'
 
 # What standards exist?
 
-* Ansible documents some Best practices
+* Ansible documents some Best practices (FIXME)
 * We have our own for consistency sake
     - whitespace
     - role versioning
     - roles
     - variable declaration location
+    - idempotency
 
-# How do we manage standards?
-
-* standards are versioned
-* review process for new standards
-
-# Standards over time
+# Standards evolve
 
 ![standards over time](ansible-docs.png)
 
@@ -43,40 +64,82 @@
   even committing.
 * Actual code reviews seem less pedantic
 
-# Ansible-Review
+# Inspiration
 
-* Took inspiration from
-  [Alexandra & Matt](https://www.youtube.com/watch?v=yPy44B9h820)
-* Applys a set of rules that check for adherence
-  to standards based on declared standards version
+* [Alexandra & Matt's talk](https://www.youtube.com/watch?v=yPy44B9h820)
+  on making the Right Way the Easy Way
+* Have a versioned set of standards
+* Test deployments against those standards 
+
+# Ansible-review
 * https://github.com/willthames/ansible-review
 * Runs on individual files or even lines of
   individual files (good for diffs)
-* Very much designed to be pluggable for your
-  own organisation's needs
+* Needs a set of standards rules to be defined
+* Roles and playbooks must declare standards
+  version (e.g. `# Standards: 1.2` in `meta/main.yml`)
 
-# Ansible-lint exists too:
+# Ansible-lint
 
 * [ansible-lint](https://github.com/willthames/ansible-lint)
   comes with a bunch of builtin rules (more with v3.0)
-    - do package installs declare version
-    - are commands run when ansible modules exist
-    - are tasks named
+    - repeatability
+    - idempotency
+    - readability
+    - etc.
 * Added some internal ansible-lint rules to our repo too.
 
 # Ansible-review standards
 
-* Ansible-review can use ansible-lint as a basis for
-  a standards check
+* Based on ansible-lint checks
+* Or write your own check in python
+* A check takes a filename and settings
+* And returns a `Result` object, which is
+  effectively a list of `Error`s.
 
-  ```
-  become_rather_than_sudo = Standard(dict(
-      name = "Use become/become_user/become_method rather than sudo/sudo_user",
-      check = lintcheck('ANSIBLE0008'),
-      types = ["playbook", "task"]
-  ))
-  ```
+# A sample standard rule
 
-* Or just write your own method to do the check.
+```
+become_rather_than_sudo = Standard(dict(
+    name = "Use become/become_user/become_method rather than sudo/sudo_user",
+    check = lintcheck('ANSIBLE0008'),
+    types = ["playbook", "task"]
+    version = "0.9"
+))
 
-# B
+standards = [
+  become_rather_than_sudo,
+  ...
+]
+```
+
+# Warnings
+
+For things that aren't yet standards but are
+worth knowing about (e.g. deprecated behaviour),
+a standard without a version will never error,
+only warn.
+
+# Ansible-review benefits
+
+* Can review specific lines in set of files
+  `ansible-review playbook.yml:14-18 otherthing.yml`
+* Can control which checks are important
+* Can review older code against older versions for
+  minor changes
+
+# Running ansible-review
+
+* `git ls-files | xargs ansible-review`
+* `git diff master | ansible-review` - to be implemented
+* As a commit hook (add `-q` for just errors and warnings)
+
+# Results
+
+FIXME
+
+# Conclusions
+
+* ansible-review has helped in the review of around 10
+  internally developed ansible roles so far
+* Few false positives.
