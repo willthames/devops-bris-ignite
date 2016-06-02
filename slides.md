@@ -33,8 +33,8 @@
 * standards are testable, best practices
   are guidance
 * review process for new standards
-* standards are versioned (best practices
-  are not)
+* changes to standards cause version to
+  be incremented
 
 # Main rule of code reviews
 
@@ -102,7 +102,8 @@
 
 ```
 become_rather_than_sudo = Standard(dict(
-    name = "Use become/become_user/become_method rather than sudo/sudo_user",
+    name = "Use become/become_user/become_method " \
+           "rather than sudo/sudo_user",
     check = lintcheck('ANSIBLE0008'),
     types = ["playbook", "task"]
     version = "0.9"
@@ -132,12 +133,12 @@ only warn.
 # Running ansible-review
 
 * `git ls-files | xargs ansible-review`
-* `git diff master | ansible-review` - to be implemented
+* `git diff master | ansible-review`
 * As a commit hook (add `-q` for just errors and warnings)
 
 # Results
 
-FIXME
+![ansible-review results](ansible-review.png)
 
 # Conclusions
 
