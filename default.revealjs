@@ -95,6 +95,7 @@ $body$
         slideNumber: $if(slideNumber)$true$else$false$endif$,                // Display the page number of the current slide
         theme: $if(theme)$'$theme$'$else$Reveal.getQueryHash().theme$endif$, // available themes are in /css/theme
         transition: $if(transition)$'$transition$'$else$Reveal.getQueryHash().transition || 'default'$endif$, // default/cube/page/concave/zoom/linear/fade/none
+        autoSlide: $if(autoSlide)$$autoSlide$$else$0$endif$,
 
         // Optional libraries used to extend on reveal.js
         dependencies: [
@@ -104,7 +105,6 @@ $body$
 //          { src: '$revealjs-url$/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
 //          { src: '$revealjs-url$/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
 ]});
-      id=setInterval(Reveal.right,2e4);Reveal.addEventListener("slidechanged",()=>{Reveal.isLastSlide()&&clearInterval(id)})
     </script>
   $for(include-after)$
   $include-after$

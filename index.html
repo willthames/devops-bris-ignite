@@ -68,7 +68,7 @@
 <ul>
 <li>standards are testable, best practices are guidance</li>
 <li>review process for new standards</li>
-<li>standards are versioned (best practices are not)</li>
+<li>changes to standards cause version to be incremented</li>
 </ul>
 </section>
 <section id="main-rule-of-code-reviews" class="slide level1">
@@ -210,9 +210,10 @@ standards = [
         history: true,          // Push each slide change to the browser history
         center: false,                       // Vertical centering of slides
         maxScale: 1.5,                  // Bounds for smallest/largest possible content scale
-        slideNumber: false,                // Display the page number of the current slide
+        slideNumber: true,                // Display the page number of the current slide
         theme: 'blood', // available themes are in /css/theme
         transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+        autoSlide: 20000,
 
         // Optional libraries used to extend on reveal.js
         dependencies: [
@@ -222,7 +223,6 @@ standards = [
 //          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
 //          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
 ]});
-      id=setInterval(Reveal.right,2e4);Reveal.addEventListener("slidechanged",()=>{Reveal.isLastSlide()&&clearInterval(id)})
     </script>
     </body>
 </html>
