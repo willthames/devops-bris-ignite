@@ -145,3 +145,7 @@ only warn.
 * ansible-review has helped in the review of around 10
   internally developed ansible roles so far
 * Few false positives.
+
+# Thanks
+
+https://willthames.github.io/devops-bris-ignite
