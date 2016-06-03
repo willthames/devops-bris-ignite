@@ -1,6 +1,8 @@
 # Ignite slides for DevOps Brisbane Meetup 02/06/2016
 
-Basis of slides is [slides.md](slides.md).
+Basis of slides is [slides.md](slides.md). Results are
+at
+[http://willthames.github.io/devops-bris-ignite](http://willthames.github.io/devops-bris-ignite)
 
 To convert slides to HTML:
 
@@ -17,3 +19,5 @@ The [default.revealjs](default.revealjs) template
 is based on the source from pandoc, but with a couple of
 tweaks to pass autoSlide timings to reveal.js and allow
 CSS overrides through [overrides.css](overrides.css)
+
+
